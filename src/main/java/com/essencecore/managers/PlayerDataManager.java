@@ -1,5 +1,6 @@
 package com.essencecore.managers;
 
+import com.cryptomorin.xseries.XAttribute;
 import com.cryptomorin.xseries.XMaterial;
 import com.essencecore.EssenceCore;
 import com.essencecore.data.PlayerData;
@@ -99,18 +100,21 @@ public class PlayerDataManager {
     public void setActiveEssence(Player player, String essenceId) {
         clearPotionEffects(player);
         removeEssenceItems(player);
+        resetScale(player);
         
         PlayerData data = getPlayerData(player);
         data.setActiveEssence(essenceId);
         data.getAbilityToggles().clear();
         
         giveEssenceItems(player);
+        applyScale(player, essenceId);
         savePlayerData(player);
     }
     
     public void clearActiveEssence(Player player) {
         clearPotionEffects(player);
         removeEssenceItems(player);
+        resetScale(player);
         
         PlayerData data = getPlayerData(player);
         data.setActiveEssence(null);
@@ -158,6 +162,28 @@ public class PlayerDataManager {
         for (PotionEffect effect : player.getActivePotionEffects()) {
             player.removePotionEffect(effect.getType());
         }
+    }
+    
+    private void applyScale(Player player, String essenceId) {
+        Essence essence = plugin.getEssenceManager().getEssence(essenceId).orElse(null);
+        if (essence == null) return;
+        
+        double scale = essence.getScale();
+        if (scale != 1.0) {
+            XAttribute.of("scale").ifPresent(attr -> {
+                if (player.getAttribute(attr.get()) != null) {
+                    player.getAttribute(attr.get()).setBaseValue(scale);
+                }
+            });
+        }
+    }
+    
+    private void resetScale(Player player) {
+        XAttribute.of("scale").ifPresent(attr -> {
+            if (player.getAttribute(attr.get()) != null) {
+                player.getAttribute(attr.get()).setBaseValue(1.0);
+            }
+        });
     }
     
     public void loadAllData() {

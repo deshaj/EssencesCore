@@ -1,12 +1,18 @@
 essences:
   axolotl:
-    name: "&#FF69B4&lA&#FF7CC4&lx&#FF8FD4&lo&#FFA2E4&ll&#FFB5F4&lo&#FFC8FF&lt&#FFDBFF&ll"
+    name: "&#FF2FCF&lᴀ&#FF39D1&lx&#FF43D4&lᴏ&#FF4DD6&lʟ&#FF58D9&lᴏ&#FF62DB&lᴛ&#FF6CDE&lʟ &#FF6CDE&lᴇ&#FF62DB&lꜱ&#FF58D9&lꜱ&#FF4DD6&lᴇ&#FF43D4&lɴ&#FF39D1&lᴄ&#FF2FCF&lᴇ"
     description:
-      - "&#9E9E9EWater breathing and regeneration"
-      - "&#9E9E9ECannot jump high"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#FF2FCFPerks:"
+      - "&#48FA6A&l✔ &#3E964FWater Breathing"
+      - "&#48FA6A&l✔ &#3E964FRegeneration"
+      - "&#48FA6A&l✔ &#3E964F0.5 Scale"
+      - "&#FA4848&l✖ &#963E3ELower Jump"
+      - "&#FA4848&l✖ &#963E3ESlowness"
     icon: "AXOLOTL_BUCKET"
-    cost: 500
+    scale: 0.5
     passive-effects:
       always:
         - "type: WATER_BREATHING"
@@ -28,12 +34,17 @@ essences:
     abilities: []
 
   cow:
-    name: "&#8B4513&lC&#A0522D&lo&#B65F47&lw"
+    name: "&#8B4513&lᴄ&#A0522D&lᴏ&#B65F47&lᴡ"
     description:
-      - "&#9E9E9EResistance and farm diet"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#8B4513Perks:"
+      - "&#48FA6A&l✔ &#3E964FResistance"
+      - "&#48FA6A&l✔ &#3E964FFarm Diet"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "MILK_BUCKET"
-    cost: 500
+    scale: 1.3
     passive-effects:
       always:
         - "type: DAMAGE_RESISTANCE"
@@ -45,13 +56,18 @@ essences:
     abilities: []
 
   warden:
-    name: "&#0B1215&lW&#162429&la&#21363D&lr&#2C4851&ld&#375A65&le&#426C79&ln"
+    name: "&#0B1215&lᴡ&#162429&lᴀ&#21363D&lʀ&#2C4851&lᴅ&#375A65&lᴇ&#426C79&lɴ"
     description:
-      - "&#9E9E9EStrength and slam ability"
-      - "&#FFD93DCooldown: 10 seconds"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#0B1215Perks:"
+      - "&#48FA6A&l✔ &#3E964FStrength"
+      - "&#48FA6A&l✔ &#3E964FSlam Ability"
+      - "&#48FA6A&l✔ &#3E964F2.0 Scale"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "SCULK_CATALYST"
-    cost: 500
+    scale: 2.0
     passive-effects:
       always:
         - "type: INCREASE_DAMAGE"
@@ -73,12 +89,19 @@ essences:
         sound: "ENTITY_WARDEN_ATTACK_IMPACT"
 
   dolphin:
-    name: "&#1E90FF&lD&#3FA1FF&lo&#60B2FF&ll&#81C3FF&lp&#A2D4FF&lh&#C3E5FF&li&#E4F6FF&ln"
+    name: "&#1E90FF&lᴅ&#3FA1FF&lᴏ&#60B2FF&lʟ&#81C3FF&lᴘ&#A2D4FF&lʜ&#C3E5FF&lɪ&#E4F6FF&lɴ"
     description:
-      - "&#9E9E9ESwim speed and luck"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#1E90FFPerks:"
+      - "&#48FA6A&l✔ &#3E964FSwim Speed"
+      - "&#48FA6A&l✔ &#3E964FLuck"
+      - "&#48FA6A&l✔ &#3E964F0.7 Scale"
+      - "&#FA4848&l✖ &#963E3ESlowness"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "TROPICAL_FISH"
-    cost: 500
+    scale: 0.7
     passive-effects:
       always:
         - "type: LUCK"
@@ -100,13 +123,18 @@ essences:
     abilities: []
 
   fox:
-    name: "&#FF6B00&lF&#FF8A33&lo&#FFA866&lx"
+    name: "&#FF6B00&lꜰ&#FF8A33&lᴏ&#FFA866&lx"
     description:
-      - "&#9E9E9ENight vision and leap"
-      - "&#FFD93DCooldown: 5 seconds"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#FF6B00Perks:"
+      - "&#48FA6A&l✔ &#3E964FNight Vision"
+      - "&#48FA6A&l✔ &#3E964FLeap Ability"
+      - "&#48FA6A&l✔ &#3E964F0.8 Scale"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "SWEET_BERRIES"
-    cost: 500
+    scale: 0.8
     passive-effects:
       always:
         - "type: NIGHT_VISION"
@@ -127,14 +155,19 @@ essences:
         sound: "ENTITY_ENDER_DRAGON_FLAP"
 
   breezer:
-    name: "&#B0E0E6&lB&#C4E8ED&lr&#D8F0F4&le&#ECF8FB&le&#FFFFFF&lz&#F0F8FF&le&#E1F1FF&lr"
+    name: "&#B0E0E6&lʙ&#C4E8ED&lʀ&#D8F0F4&lᴇ&#ECF8FB&lᴇ&#FFFFFF&lᴢ&#F0F8FF&lᴇ&#E1F1FF&lʀ"
     description:
-      - "&#9E9E9EWind charge and slow falling"
-      - "&#9E9E9EHold fishing rod to activate"
-      - "&#FFD93DCooldown: 8 seconds"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#B0E0E6Perks:"
+      - "&#48FA6A&l✔ &#3E964FWind Charge"
+      - "&#48FA6A&l✔ &#3E964FSlow Falling"
+      - "&#48FA6A&l✔ &#3E964F0.9 Scale"
+      - "&#FA4848&l✖ &#963E3ESlowness"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "FEATHER"
-    cost: 500
+    scale: 0.9
     passive-effects:
       always:
         - "type: SLOW_FALLING"
@@ -155,14 +188,20 @@ essences:
         sound: "ENTITY_BREEZE_SHOOT"
 
   iron_golem:
-    name: "&#7F8C8D&lI&#95A1A2&lr&#ABB6B7&lo&#C1CBCC&ln &#D7E0E1&lG&#DCEAEB&lo&#E1F4F5&ll&#E6FEFF&le&#EBFFFF&lm"
+    name: "&#7F8C8D&lɪ&#95A1A2&lʀ&#ABB6B7&lᴏ&#C1CBCC&lɴ &#D7E0E1&lɢ&#DCEAEB&lᴏ&#E1F4F5&lʟ&#E6FEFF&lᴇ&#EBFFFF&lᴍ"
     description:
-      - "&#9E9E9EStrength and resistance"
-      - "&#9E9E9ERight-click to pick up entities"
-      - "&#FFD93DCooldown: 3 seconds"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#7F8C8DPerks:"
+      - "&#48FA6A&l✔ &#3E964FStrength"
+      - "&#48FA6A&l✔ &#3E964FResistance"
+      - "&#48FA6A&l✔ &#3E964FPick Up Entities"
+      - "&#48FA6A&l✔ &#3E964F1.5 Scale"
+      - "&#FA4848&l✖ &#963E3ESlowness"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "IRON_BLOCK"
-    cost: 500
+    scale: 1.5
     passive-effects:
       always:
         - "type: INCREASE_DAMAGE"
@@ -184,14 +223,19 @@ essences:
         sound: "ENTITY_IRON_GOLEM_HURT"
 
   enderman:
-    name: "&#9B59B6&lE&#B370CF&ln&#CB87E8&ld&#E39EFF&le&#F0B5FF&lr&#F8CCFF&lm&#FFE3FF&la&#FFF0FF&ln"
+    name: "&#9B59B6&lᴇ&#B370CF&lɴ&#CB87E8&lᴅ&#E39EFF&lᴇ&#F0B5FF&lʀ&#F8CCFF&lᴍ&#FFE3FF&lᴀ&#FFF0FF&lɴ"
     description:
-      - "&#9E9E9ETeleport with stick (slot 8)"
-      - "&#9E9E9ESpeed and mining bonus"
-      - "&#FFD93DCooldown: 30 seconds"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#9B59B6Perks:"
+      - "&#48FA6A&l✔ &#3E964FTeleport Stick"
+      - "&#48FA6A&l✔ &#3E964FSpeed"
+      - "&#48FA6A&l✔ &#3E964FHaste"
+      - "&#48FA6A&l✔ &#3E964F1.2 Scale"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "ENDER_PEARL"
-    cost: 500
+    scale: 1.2
     passive-effects:
       always:
         - "type: SPEED"
@@ -212,14 +256,19 @@ essences:
         sound: "ENTITY_ENDERMAN_TELEPORT"
 
   allay:
-    name: "&#87CEEB&lA&#99D6EF&ll&#ABD EF3&ll&#BDEBF7&la&#CFEEFB&ly"
+    name: "&#87CEEB&lᴀ&#99D6EF&lʟ&#ABDEF3&lʟ&#BDEBF7&lᴀ&#CFEEFB&lʏ"
     description:
-      - "&#9E9E9ELow gravity and pull entities"
-      - "&#9E9E9ESneak to pull nearby entities"
-      - "&#FFD93DCooldown: 10 seconds"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#87CEEBPerks:"
+      - "&#48FA6A&l✔ &#3E964FSlow Falling"
+      - "&#48FA6A&l✔ &#3E964FPull Entities"
+      - "&#48FA6A&l✔ &#3E964F0.6 Scale"
+      - "&#FA4848&l✖ &#963E3ESlowness"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "COOKIE"
-    cost: 500
+    scale: 0.6
     passive-effects:
       always:
         - "type: SLOW_FALLING"
@@ -241,12 +290,18 @@ essences:
         sound: "ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM"
 
   chicken:
-    name: "&#FFFFFF&lC&#FFE4B5&lh&#FFCA6A&li&#FFB020&lc&#FF9600&lk&#FF7C00&le&#FF6200&ln"
+    name: "&#FFFFFF&lᴄ&#FFE4B5&lʜ&#FFCA6A&lɪ&#FFB020&lᴄ&#FF9600&lᴋ&#FF7C00&lᴇ&#FF6200&lɴ"
     description:
-      - "&#9E9E9ESpeed and no fall damage"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#FFFFFFPerks:"
+      - "&#48FA6A&l✔ &#3E964FSpeed"
+      - "&#48FA6A&l✔ &#3E964FNo Fall Damage"
+      - "&#48FA6A&l✔ &#3E964F0.5 Scale"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "EGG"
-    cost: 500
+    scale: 0.5
     passive-effects:
       always:
         - "type: SPEED"
@@ -260,13 +315,19 @@ essences:
         name: "Feather Falling"
 
   frog:
-    name: "&#4CAF50&lF&#66BB6A&lr&#80C784&lo&#9AD39E&lg"
+    name: "&#4CAF50&lꜰ&#66BB6A&lʀ&#80C784&lᴏ&#9AD39E&lɢ"
     description:
-      - "&#9E9E9EJump Boost and frog leap"
-      - "&#FFD93DCooldown: 4 seconds"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#4CAF50Perks:"
+      - "&#48FA6A&l✔ &#3E964FJump Boost"
+      - "&#48FA6A&l✔ &#3E964FFrog Leap"
+      - "&#48FA6A&l✔ &#3E964F0.6 Scale"
+      - "&#FA4848&l✖ &#963E3ESlowness"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "FROGSPAWN"
-    cost: 500
+    scale: 0.6
     passive-effects:
       always:
         - "type: JUMP_BOOST"
@@ -287,13 +348,19 @@ essences:
         sound: "ENTITY_FROG_STEP"
 
   zombie:
-    name: "&#006400&lZ&#1A7A1A&lo&#348F34&lm&#4EA44E&lb&#69B969&li&#83CE83&le"
+    name: "&#006400&lᴢ&#1A7A1A&lᴏ&#348F34&lᴍ&#4EA44E&lʙ&#69B969&lɪ&#83CE83&lᴇ"
     description:
-      - "&#9E9E9EStrength and hunger aura"
-      - "&#9E9E9ENo hunger and slow"
-      - "&#FFD93DCost: 500 Credits"
+      - "&#ecff00&l⭐ &#ecff00Select for 500 Coins"
+      - "&#4887FA&l⭐ &#4887FAYou have %playerpoints_points% points!"
+      - "&f "
+      - "&#006400Perks:"
+      - "&#48FA6A&l✔ &#3E964FStrength"
+      - "&#48FA6A&l✔ &#3E964FHunger Aura"
+      - "&#48FA6A&l✔ &#3E964FNo Hunger"
+      - "&#FA4848&l✖ &#963E3ESlowness II"
+      - "&#FA4848&l✖ &#963E3EWeakness"
     icon: "ROTTEN_FLESH"
-    cost: 500
+    scale: 1.0
     passive-effects:
       always:
         - "type: INCREASE_DAMAGE"

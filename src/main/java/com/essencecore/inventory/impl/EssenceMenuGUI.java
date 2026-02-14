@@ -1,13 +1,14 @@
 package com.essencecore.inventory.impl;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XSound;
 import com.essencecore.EssenceCore;
 import com.essencecore.data.PlayerData;
 import com.essencecore.essence.Essence;
-import com.essencecore.essence.abilities.Ability;
 import com.essencecore.inventory.InventoryButton;
 import com.essencecore.inventory.InventoryGUI;
 import com.essencecore.utils.ColorUtil;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,10 +25,12 @@ public class EssenceMenuGUI extends InventoryGUI {
     
     private final EssenceCore plugin;
     private final ConfigurationSection config;
+    private final boolean papiEnabled;
     
     public EssenceMenuGUI(EssenceCore plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfigManager().getInventoryConfig().getConfigurationSection("essence-menu");
+        this.papiEnabled = Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
     }
     
     @Override
@@ -111,23 +114,16 @@ public class EssenceMenuGUI extends InventoryGUI {
         ItemMeta meta = item.getItemMeta();
         
         if (meta != null) {
-            meta.setDisplayName(ColorUtil.color(essence.getName()));
+            meta.setDisplayName(hex(essence.getName()));
             
             List<String> lore = new ArrayList<>();
-            lore.add("");
             
             for (String line : essence.getDescription()) {
-                lore.add(ColorUtil.color(line));
-            }
-            
-            lore.add("");
-            lore.add(hex("&#FF6B9D➤ &#FFA6C1Abilities:"));
-            
-            for (Ability ability : essence.getAbilities()) {
-                lore.add(hex("  &#B794F6⬥ &#D4BEF8" + ability.getName()));
-                if (ability.getCooldown() > 0) {
-                    lore.add(hex("    &#9E9E9ECooldown: " + ability.getCooldown() + "s"));
+                String processedLine = line;
+                if (papiEnabled) {
+                    processedLine = PlaceholderAPI.setPlaceholders(player, processedLine);
                 }
+                lore.add(hex(processedLine));
             }
             
             lore.add("");
@@ -168,7 +164,7 @@ public class EssenceMenuGUI extends InventoryGUI {
         ItemMeta meta = item.getItemMeta();
         
         if (meta != null) {
-            meta.setDisplayName(ColorUtil.color(infoSection.getString("name", "&d&lEssence Info")));
+            meta.setDisplayName(hex(infoSection.getString("name", "&d&lEssence Info")));
             
             List<String> lore = new ArrayList<>();
             for (String line : infoSection.getStringList("lore")) {
@@ -180,6 +176,9 @@ public class EssenceMenuGUI extends InventoryGUI {
                     : "&7None";
                 
                 String processedLine = line.replace("{current}", currentEssence);
+                if (papiEnabled) {
+                    processedLine = PlaceholderAPI.setPlaceholders(player, processedLine);
+                }
                 lore.add(hex(processedLine));
             }
             
@@ -199,15 +198,17 @@ public class EssenceMenuGUI extends InventoryGUI {
     }
     
     private void handleEssenceClick(Player player, Essence essence) {
+        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
+        
         if (!player.hasPermission("essence.use." + essence.getId())) {
+            XSound.matchXSound("ENTITY_VILLAGER_NO").ifPresent(s -> s.play(player));
             player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + 
                 plugin.getConfigManager().getMessage("no-permission")));
             return;
         }
         
-        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
-        
         if (data.hasEssence() && data.getActiveEssence().equals(essence.getId())) {
+            XSound.matchXSound("ENTITY_VILLAGER_NO").ifPresent(s -> s.play(player));
             player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + 
                 plugin.getConfigManager().getMessage("already-has-essence")));
             return;
@@ -216,6 +217,7 @@ public class EssenceMenuGUI extends InventoryGUI {
         if (data.hasEssence() && plugin.getConfigManager().isOneEssenceOnly()) {
             if (plugin.getConfigManager().isSwitchCostEnabled()) {
                 if (!handleSwitchCost(player)) {
+                    XSound.matchXSound("ENTITY_VILLAGER_NO").ifPresent(s -> s.play(player));
                     return;
                 }
                 
@@ -230,11 +232,14 @@ public class EssenceMenuGUI extends InventoryGUI {
                 String message = plugin.getConfigManager().getMessage("essence-switched")
                     .replace("{essence}", essence.getName())
                     .replace("{cost}", costDisplay);
+                
+                XSound.matchXSound("ENTITY_PLAYER_LEVELUP").ifPresent(s -> s.play(player));
                 player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + message));
                 
                 player.closeInventory();
                 return;
             } else {
+                XSound.matchXSound("ENTITY_VILLAGER_NO").ifPresent(s -> s.play(player));
                 player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + 
                     plugin.getConfigManager().getMessage("one-essence-only")));
                 return;
@@ -245,6 +250,8 @@ public class EssenceMenuGUI extends InventoryGUI {
         
         String message = plugin.getConfigManager().getMessage("essence-given")
             .replace("{essence}", essence.getName());
+        
+        XSound.matchXSound("ENTITY_PLAYER_LEVELUP").ifPresent(s -> s.play(player));
         player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + message));
         
         player.closeInventory();
