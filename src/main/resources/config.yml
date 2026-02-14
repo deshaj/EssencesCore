@@ -1,0 +1,29 @@
+settings:
+  prefix: "&d&lESSENCE &8»&r"
+  save-interval: 300
+  one-essence-only: true
+  
+  switch-cost:
+    enabled: true
+    type: vault
+    amount: 1000
+    
+  combat-tag:
+    enabled: true
+    duration: 10
+    
+  region-restrictions:
+    enabled: false
+
+messages:
+  essence-given: "&aYou have received the {essence}&a!"
+  essence-removed: "&cYour essence has been removed!"
+  essence-switched: "&aYou have switched to {essence}&a! Cost: &e{cost}"
+  no-permission: "&cYou don't have permission to use this essence!"
+  already-has-essence: "&cYou already have this essence active!"
+  one-essence-only: "&cYou can only have one essence! Use /essence remove first."
+  insufficient-funds: "&cYou don't have enough {currency} to switch essences! Required: &e{cost}"
+  ability-cooldown: "&cAbility on cooldown! &7({time}s remaining)"
+  in-combat: "&cYou cannot use this ability while in combat!"
+  outside-region: "&cYou cannot use this ability outside the allowed region!"
+  config-reloaded: "&aConfiguration reloaded successfully!"

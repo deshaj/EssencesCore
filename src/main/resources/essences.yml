@@ -1,0 +1,314 @@
+essences:
+  axolotl:
+    name: "&#FF69B4&lA&#FF7CC4&lx&#FF8FD4&lo&#FFA2E4&ll&#FFB5F4&lo&#FFC8FF&lt&#FFDBFF&ll"
+    description:
+      - "&#9E9E9EWater breathing and regeneration"
+      - "&#9E9E9ECannot jump high"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "AXOLOTL_BUCKET"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: WATER_BREATHING"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: JUMP_BOOST"
+        - "amplifier: -2"
+        - "duration: 40"
+        - "type: SLOW"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+      in-water:
+        - "type: REGENERATION"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities: []
+
+  cow:
+    name: "&#8B4513&lC&#A0522D&lo&#B65F47&lw"
+    description:
+      - "&#9E9E9EResistance and farm diet"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "MILK_BUCKET"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: DAMAGE_RESISTANCE"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities: []
+
+  warden:
+    name: "&#0B1215&lW&#162429&la&#21363D&lr&#2C4851&ld&#375A65&le&#426C79&ln"
+    description:
+      - "&#9E9E9EStrength and slam ability"
+      - "&#FFD93DCooldown: 10 seconds"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "SCULK_CATALYST"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: INCREASE_DAMAGE"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: FAST_DIGGING"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities:
+      - type: SLAM
+        name: "Slam"
+        cooldown: 10
+        damage: 6.0
+        range: 10.0
+        particle: "EXPLOSION_LARGE"
+        sound: "ENTITY_WARDEN_ATTACK_IMPACT"
+
+  dolphin:
+    name: "&#1E90FF&lD&#3FA1FF&lo&#60B2FF&ll&#81C3FF&lp&#A2D4FF&lh&#C3E5FF&li&#E4F6FF&ln"
+    description:
+      - "&#9E9E9ESwim speed and luck"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "TROPICAL_FISH"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: LUCK"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: SLOW"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+      in-water:
+        - "type: DOLPHINS_GRACE"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: SPEED"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities: []
+
+  fox:
+    name: "&#FF6B00&lF&#FF8A33&lo&#FFA866&lx"
+    description:
+      - "&#9E9E9ENight vision and leap"
+      - "&#FFD93DCooldown: 5 seconds"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "SWEET_BERRIES"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: NIGHT_VISION"
+        - "amplifier: 0"
+        - "duration: 240"
+        - "type: SPEED"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities:
+      - type: LEAP
+        name: "Leap"
+        cooldown: 5
+        power: 1.5
+        particle: "CLOUD"
+        sound: "ENTITY_ENDER_DRAGON_FLAP"
+
+  breezer:
+    name: "&#B0E0E6&lB&#C4E8ED&lr&#D8F0F4&le&#ECF8FB&le&#FFFFFF&lz&#F0F8FF&le&#E1F1FF&lr"
+    description:
+      - "&#9E9E9EWind charge and slow falling"
+      - "&#9E9E9EHold fishing rod to activate"
+      - "&#FFD93DCooldown: 8 seconds"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "FEATHER"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: SLOW_FALLING"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: SLOW"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities:
+      - type: WIND_CHARGE
+        name: "Wind Charge"
+        cooldown: 8
+        power: 2.0
+        particle: "CLOUD"
+        sound: "ENTITY_BREEZE_SHOOT"
+
+  iron_golem:
+    name: "&#7F8C8D&lI&#95A1A2&lr&#ABB6B7&lo&#C1CBCC&ln &#D7E0E1&lG&#DCEAEB&lo&#E1F4F5&ll&#E6FEFF&le&#EBFFFF&lm"
+    description:
+      - "&#9E9E9EStrength and resistance"
+      - "&#9E9E9ERight-click to pick up entities"
+      - "&#FFD93DCooldown: 3 seconds"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "IRON_BLOCK"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: INCREASE_DAMAGE"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: DAMAGE_RESISTANCE"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: SLOW"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities:
+      - type: PICK_UP_PLAYER
+        name: "Pick Up"
+        cooldown: 3
+        sound: "ENTITY_IRON_GOLEM_HURT"
+
+  enderman:
+    name: "&#9B59B6&lE&#B370CF&ln&#CB87E8&ld&#E39EFF&le&#F0B5FF&lr&#F8CCFF&lm&#FFE3FF&la&#FFF0FF&ln"
+    description:
+      - "&#9E9E9ETeleport with stick (slot 8)"
+      - "&#9E9E9ESpeed and mining bonus"
+      - "&#FFD93DCooldown: 30 seconds"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "ENDER_PEARL"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: SPEED"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: FAST_DIGGING"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities:
+      - type: TELEPORT_STICK
+        name: "Teleport"
+        cooldown: 30
+        radius: 6.0
+        particle: "PORTAL"
+        sound: "ENTITY_ENDERMAN_TELEPORT"
+
+  allay:
+    name: "&#87CEEB&lA&#99D6EF&ll&#ABD EF3&ll&#BDEBF7&la&#CFEEFB&ly"
+    description:
+      - "&#9E9E9ELow gravity and pull entities"
+      - "&#9E9E9ESneak to pull nearby entities"
+      - "&#FFD93DCooldown: 10 seconds"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "COOKIE"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: SLOW_FALLING"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: SLOW"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities:
+      - type: MOVE_ENTITIES
+        name: "Pull Entities"
+        cooldown: 10
+        radius: 8.0
+        power: 0.5
+        particle: "ENCHANTMENT_TABLE"
+        sound: "ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM"
+
+  chicken:
+    name: "&#FFFFFF&lC&#FFE4B5&lh&#FFCA6A&li&#FFB020&lc&#FF9600&lk&#FF7C00&le&#FF6200&ln"
+    description:
+      - "&#9E9E9ESpeed and no fall damage"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "EGG"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: SPEED"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities:
+      - type: NO_FALL_DAMAGE
+        name: "Feather Falling"
+
+  frog:
+    name: "&#4CAF50&lF&#66BB6A&lr&#80C784&lo&#9AD39E&lg"
+    description:
+      - "&#9E9E9EJump Boost and frog leap"
+      - "&#FFD93DCooldown: 4 seconds"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "FROGSPAWN"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: JUMP_BOOST"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: SLOW"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities:
+      - type: FROG_LEAP
+        name: "Frog Leap"
+        cooldown: 4
+        power: 2.0
+        particle: "SLIME"
+        sound: "ENTITY_FROG_STEP"
+
+  zombie:
+    name: "&#006400&lZ&#1A7A1A&lo&#348F34&lm&#4EA44E&lb&#69B969&li&#83CE83&le"
+    description:
+      - "&#9E9E9EStrength and hunger aura"
+      - "&#9E9E9ENo hunger and slow"
+      - "&#FFD93DCost: 500 Credits"
+    icon: "ROTTEN_FLESH"
+    cost: 500
+    passive-effects:
+      always:
+        - "type: INCREASE_DAMAGE"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: SATURATION"
+        - "amplifier: 0"
+        - "duration: 40"
+        - "type: SLOW"
+        - "amplifier: 1"
+        - "duration: 40"
+        - "type: WEAKNESS"
+        - "amplifier: 0"
+        - "duration: 40"
+    abilities:
+      - type: HUNGER_AURA
+        name: "Hunger Aura"
+        radius: 5.0
