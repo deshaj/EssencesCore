@@ -45,11 +45,12 @@ public class EssenceManager {
         List<String> description = section.getStringList("description");
         String icon = section.getString("icon", "PAPER");
         double scale = section.getDouble("scale", 1.0);
+        int cost = section.getInt("cost", 500);
         
         Map<EffectTrigger, List<PassiveEffect>> passiveEffects = loadPassiveEffects(section.getConfigurationSection("passive-effects"));
         List<Ability> abilities = loadAbilities(section);
         
-        return new Essence(id, name, description, icon, scale, passiveEffects, abilities);
+        return new Essence(id, name, description, icon, scale, cost, passiveEffects, abilities);
     }
     
     private Map<EffectTrigger, List<PassiveEffect>> loadPassiveEffects(ConfigurationSection section) {

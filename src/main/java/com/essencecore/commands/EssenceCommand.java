@@ -32,7 +32,7 @@ public class EssenceCommand implements CommandExecutor, TabCompleter {
             }
             
             Player player = (Player) sender;
-            EssenceMenuGUI gui = new EssenceMenuGUI(plugin);
+            EssenceMenuGUI gui = new EssenceMenuGUI(plugin, 0);
             plugin.getGuiManager().openGUI(gui, player);
             return true;
         }

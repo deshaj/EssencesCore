@@ -78,6 +78,13 @@ public class EconomyManager {
         return playerPointsAPI.take(player.getUniqueId(), amount);
     }
     
+    public int getPoints(Player player) {
+        if (!playerPointsEnabled || playerPointsAPI == null) {
+            return 0;
+        }
+        return playerPointsAPI.look(player.getUniqueId());
+    }
+    
     public String formatMoney(double amount) {
         if (vaultEnabled && vaultEconomy != null) {
             return vaultEconomy.format(amount);

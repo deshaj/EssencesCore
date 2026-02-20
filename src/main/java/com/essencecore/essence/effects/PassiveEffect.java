@@ -7,12 +7,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
 @Data
-@AllArgsConstructor
 public class PassiveEffect {
     
     private final String type;
     private final int amplifier;
     private final int duration;
+    
+    public PassiveEffect(String type, int amplifier, int duration) {
+        this.type = type;
+        this.amplifier = amplifier;
+        this.duration = duration;
+    }
     
     public void apply(Player player) {
         XPotion.matchXPotion(type)

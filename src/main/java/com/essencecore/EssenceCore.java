@@ -58,6 +58,7 @@ public class EssenceCore extends JavaPlugin {
         startPassiveEffectTask();
         startCooldownDisplayTask();
         startHungerAuraTask();
+        startTrialExpirationTask();
         
         getLogger().info("EssenceCore has been enabled!");
     }
@@ -149,6 +150,11 @@ public class EssenceCore extends JavaPlugin {
                 List<String> statusParts = new ArrayList<>();
                 statusParts.add("&d" + essence.getName());
                 
+                if (data.isOnTrial()) {
+                    long remaining = (data.getTrialEndTime() - System.currentTimeMillis()) / 1000;
+                    statusParts.add("&6Trial: &e" + remaining + "s");
+                }
+                
                 boolean hasActiveCooldown = false;
                 
                 for (Ability ability : essence.getAbilities()) {
@@ -172,6 +178,28 @@ public class EssenceCore extends JavaPlugin {
             }
         }, 0L, 10L);
     }
+    
+    private void startTrialExpirationTask() {
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                PlayerData data = playerDataManager.getPlayerData(player);
+                
+                if (data.isOnTrial() && System.currentTimeMillis() >= data.getTrialEndTime()) {
+                    playerDataManager.clearActiveEssence(player);
+                    data.setTrialEssence(null);
+                    data.setTrialEndTime(0);
+                    playerDataManager.savePlayerData(player);
+                    
+                    player.sendMessage(ColorUtil.color(configManager.getPrefix() + " " + 
+                        configManager.getMessage("trial-expired")));
+                    player.sendMessage(ColorUtil.color(configManager.getPrefix() + " " + 
+                        configManager.getMessage("trial-expired-info")));
+                }
+            }
+        }, 20L, 20L);
+    }
+    
+
     
     public void reload() {
         reloadConfig();

@@ -66,9 +66,20 @@ public class PlayerDataManager {
             data.setAbilityToggles(toggles);
         }
         
+        data.setUsedTrial(config.getBoolean("used-trial", false));
+        data.setTrialEssence(config.getString("trial-essence"));
+        data.setTrialEndTime(config.getLong("trial-end-time", 0));
+        
         playerDataMap.put(player.getUniqueId(), data);
         
-        if (data.hasEssence()) {
+        if (data.hasTrialExpired()) {
+            clearActiveEssence(player);
+            data.setTrialEssence(null);
+            data.setTrialEndTime(0);
+            player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + 
+                " &cYour 1-hour trial has expired! Purchase an essence to continue using it."));
+            savePlayerData(player);
+        } else if (data.hasEssence()) {
             plugin.getServer().getScheduler().runTaskLater(plugin, () -> giveEssenceItems(player), 1L);
         }
     }
@@ -88,6 +99,14 @@ public class PlayerDataManager {
             for (Map.Entry<String, Boolean> entry : data.getAbilityToggles().entrySet()) {
                 config.set("ability-toggles." + entry.getKey(), entry.getValue());
             }
+        }
+        
+        config.set("used-trial", data.isUsedTrial());
+        if (data.getTrialEssence() != null) {
+            config.set("trial-essence", data.getTrialEssence());
+        }
+        if (data.getTrialEndTime() > 0) {
+            config.set("trial-end-time", data.getTrialEndTime());
         }
         
         try {
@@ -208,6 +227,10 @@ public class PlayerDataManager {
                     data.setAbilityToggles(toggles);
                 }
                 
+                data.setUsedTrial(config.getBoolean("used-trial", false));
+                data.setTrialEssence(config.getString("trial-essence"));
+                data.setTrialEndTime(config.getLong("trial-end-time", 0));
+                
                 playerDataMap.put(uuid, data);
             } catch (IllegalArgumentException ignored) {}
         }
@@ -226,6 +249,14 @@ public class PlayerDataManager {
                 for (Map.Entry<String, Boolean> entry : data.getAbilityToggles().entrySet()) {
                     config.set("ability-toggles." + entry.getKey(), entry.getValue());
                 }
+            }
+            
+            config.set("used-trial", data.isUsedTrial());
+            if (data.getTrialEssence() != null) {
+                config.set("trial-essence", data.getTrialEssence());
+            }
+            if (data.getTrialEndTime() > 0) {
+                config.set("trial-end-time", data.getTrialEndTime());
             }
             
             try {

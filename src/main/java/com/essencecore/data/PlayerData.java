@@ -15,12 +15,18 @@ public class PlayerData {
     private String activeEssence;
     private Map<String, Boolean> abilityToggles;
     private long lastShiftToggle;
+    private boolean hasUsedTrial;
+    private String trialEssence;
+    private long trialEndTime;
     
     public PlayerData(UUID uuid) {
         this.uuid = uuid;
         this.activeEssence = null;
         this.abilityToggles = new HashMap<>();
         this.lastShiftToggle = 0;
+        this.hasUsedTrial = false;
+        this.trialEssence = null;
+        this.trialEndTime = 0;
     }
     
     public boolean hasEssence() {
@@ -33,5 +39,21 @@ public class PlayerData {
     
     public void toggleAbility(String abilityName) {
         abilityToggles.put(abilityName, !isAbilityEnabled(abilityName));
+    }
+    
+    public boolean isOnTrial() {
+        return trialEssence != null && trialEndTime > System.currentTimeMillis();
+    }
+    
+    public boolean hasTrialExpired() {
+        return trialEssence != null && trialEndTime > 0 && trialEndTime <= System.currentTimeMillis();
+    }
+    
+    public boolean isUsedTrial() {
+        return hasUsedTrial;
+    }
+    
+    public void setUsedTrial(boolean used) {
+        this.hasUsedTrial = used;
     }
 }

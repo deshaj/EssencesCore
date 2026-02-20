@@ -18,6 +18,7 @@ public class Essence {
     private final List<String> description;
     private final String icon;
     private final double scale;
+    private final int cost;
     private final Map<EffectTrigger, List<PassiveEffect>> passiveEffects;
     private final List<Ability> abilities;
     
