@@ -186,6 +186,7 @@ public class EssenceCore extends JavaPlugin {
                 
                 if (data.isOnTrial() && System.currentTimeMillis() >= data.getTrialEndTime()) {
                     playerDataManager.clearActiveEssence(player);
+                    data.setUsedTrial(true);
                     data.setTrialEssence(null);
                     data.setTrialEndTime(0);
                     playerDataManager.savePlayerData(player);

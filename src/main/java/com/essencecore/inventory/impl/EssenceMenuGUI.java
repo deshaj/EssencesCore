@@ -12,6 +12,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -19,12 +20,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EssenceMenuGUI extends InventoryGUI {
     
     private final EssenceCore plugin;
     private final int page;
-    private final int essencesPerPage = 9;
     private final boolean papiEnabled;
     
     public EssenceMenuGUI(EssenceCore plugin, int page) {
@@ -35,10 +36,20 @@ public class EssenceMenuGUI extends InventoryGUI {
     
     @Override
     protected Inventory createInventory() {
+        ConfigurationSection menuConfig = plugin.getConfigManager().getInventoryConfig().getConfigurationSection("essence-menu");
         List<Essence> essences = new ArrayList<>(plugin.getEssenceManager().getAllEssences());
+        
+        int size = menuConfig.getInt("size", 54);
+        List<Integer> essenceSlots = menuConfig.getIntegerList("essence-slots");
+        int essencesPerPage = essenceSlots.size();
         int totalPages = (int) Math.ceil((double) essences.size() / essencesPerPage);
-        String title = ColorUtil.color("&8Origin " + (page + 1) + "/" + totalPages);
-        return Bukkit.createInventory(null, 54, title);
+        
+        String titleTemplate = menuConfig.getString("title", "&8Origin {page}/{total}");
+        String title = ColorUtil.color(titleTemplate
+            .replace("{page}", String.valueOf(page + 1))
+            .replace("{total}", String.valueOf(totalPages)));
+        
+        return Bukkit.createInventory(null, size, title);
     }
     
     @Override
@@ -50,19 +61,28 @@ public class EssenceMenuGUI extends InventoryGUI {
     }
     
     private void addFillerGlass(Player player) {
-        Material material = XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
+        ConfigurationSection fillerConfig = plugin.getConfigManager().getInventoryConfig().getConfigurationSection("essence-menu.filler");
+        
+        if (fillerConfig == null || !fillerConfig.getBoolean("enabled", true)) {
+            return;
+        }
+        
+        String materialName = fillerConfig.getString("material", "BLACK_STAINED_GLASS_PANE");
+        String fillerName = fillerConfig.getString("name", " ");
+        List<Integer> slots = fillerConfig.getIntegerList("slots");
+        
+        Material material = XMaterial.matchXMaterial(materialName)
             .map(XMaterial::parseMaterial)
             .orElse(Material.BLACK_STAINED_GLASS_PANE);
         
         ItemStack filler = new ItemStack(material);
         ItemMeta meta = filler.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName(" ");
+            meta.setDisplayName(ColorUtil.color(fillerName));
             filler.setItemMeta(meta);
         }
         
-        int[] fillerSlots = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53};
-        for (int slot : fillerSlots) {
+        for (int slot : slots) {
             this.addButton(slot, new InventoryButton()
                 .creator(p -> filler.clone())
                 .consumer(event -> {})
@@ -71,16 +91,19 @@ public class EssenceMenuGUI extends InventoryGUI {
     }
     
     private void addEssenceItems(Player player) {
+        ConfigurationSection menuConfig = plugin.getConfigManager().getInventoryConfig().getConfigurationSection("essence-menu");
+        List<Integer> essenceSlots = menuConfig.getIntegerList("essence-slots");
+        
         List<Essence> essences = new ArrayList<>(plugin.getEssenceManager().getAllEssences());
+        int essencesPerPage = essenceSlots.size();
         int startIndex = page * essencesPerPage;
         int endIndex = Math.min(startIndex + essencesPerPage, essences.size());
         
-        int[] essenceSlots = {10, 11, 12, 13, 14, 15, 16, 19, 20};
         int slotIndex = 0;
         
-        for (int i = startIndex; i < endIndex && slotIndex < essenceSlots.length; i++, slotIndex++) {
+        for (int i = startIndex; i < endIndex && slotIndex < essenceSlots.size(); i++, slotIndex++) {
             Essence essence = essences.get(i);
-            this.addButton(essenceSlots[slotIndex], new InventoryButton()
+            this.addButton(essenceSlots.get(slotIndex), new InventoryButton()
                 .creator(p -> createEssenceItem(essence, p))
                 .consumer(event -> handleEssenceClick((Player) event.getWhoClicked(), essence))
             );
@@ -88,18 +111,21 @@ public class EssenceMenuGUI extends InventoryGUI {
     }
     
     private void addNavigationButtons(Player player) {
+        ConfigurationSection menuConfig = plugin.getConfigManager().getInventoryConfig().getConfigurationSection("essence-menu");
+        List<Integer> essenceSlots = menuConfig.getIntegerList("essence-slots");
         List<Essence> essences = new ArrayList<>(plugin.getEssenceManager().getAllEssences());
+        
+        int essencesPerPage = essenceSlots.size();
         int totalPages = (int) Math.ceil((double) essences.size() / essencesPerPage);
         
-        int prevSlot = plugin.getConfigManager().getInventoryConfig().getInt("essence-menu.pagination.previous.slot", 29);
-        String prevMaterial = plugin.getConfigManager().getInventoryConfig().getString("essence-menu.pagination.previous.material", "RED_SHULKER_BOX");
-        String prevName = plugin.getConfigManager().getInventoryConfig().getString("essence-menu.pagination.previous.name", "&cPrevious Page");
-        
-        int nextSlot = plugin.getConfigManager().getInventoryConfig().getInt("essence-menu.pagination.next.slot", 35);
-        String nextMaterial = plugin.getConfigManager().getInventoryConfig().getString("essence-menu.pagination.next.material", "GREEN_SHULKER_BOX");
-        String nextName = plugin.getConfigManager().getInventoryConfig().getString("essence-menu.pagination.next.name", "&aNext Page");
+        ConfigurationSection paginationConfig = menuConfig.getConfigurationSection("pagination");
         
         if (page > 0) {
+            ConfigurationSection prevConfig = paginationConfig.getConfigurationSection("previous");
+            int prevSlot = prevConfig.getInt("slot", 48);
+            String prevMaterial = prevConfig.getString("material", "RED_SHULKER_BOX");
+            String prevName = prevConfig.getString("name", "&cPrevious Page");
+            
             Material prevMat = XMaterial.matchXMaterial(prevMaterial)
                 .map(XMaterial::parseMaterial)
                 .orElse(Material.RED_SHULKER_BOX);
@@ -122,6 +148,11 @@ public class EssenceMenuGUI extends InventoryGUI {
         }
         
         if (page < totalPages - 1) {
+            ConfigurationSection nextConfig = paginationConfig.getConfigurationSection("next");
+            int nextSlot = nextConfig.getInt("slot", 50);
+            String nextMaterial = nextConfig.getString("material", "GREEN_SHULKER_BOX");
+            String nextName = nextConfig.getString("name", "&aNext Page");
+            
             Material nextMat = XMaterial.matchXMaterial(nextMaterial)
                 .map(XMaterial::parseMaterial)
                 .orElse(Material.GREEN_SHULKER_BOX);
@@ -154,48 +185,76 @@ public class EssenceMenuGUI extends InventoryGUI {
         ItemMeta meta = item.getItemMeta();
         
         if (meta != null) {
-            meta.setDisplayName(hex(essence.getName()));
-            
-            List<String> lore = new ArrayList<>();
-            PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
-            int playerPoints = plugin.getEconomyManager().getPoints(player);
-            
-            if (data.isOnTrial() && data.getTrialEssence().equals(essence.getId())) {
-                long remaining = (data.getTrialEndTime() - System.currentTimeMillis()) / 1000 / 60;
-                lore.add(hex("&#ecff00&l⭐ &#ecff00FREE TRIAL - " + remaining + " minutes left"));
-            } else if (!data.isHasUsedTrial()) {
-                lore.add(hex("&#ecff00&l⭐ &#ecff00Try for FREE for 1 hour"));
-            } else {
-                lore.add(hex("&#ecff00&l⭐ &#ecff00Buy for " + essence.getCost() + " Credits"));
+            String displayName = essence.getName();
+            if (papiEnabled) {
+                displayName = PlaceholderAPI.setPlaceholders(player, displayName);
             }
+            meta.setDisplayName(hex(displayName));
             
-            lore.add(hex("&#4887FA&l⭐ &#4887FAYou have " + playerPoints + " Credits"));
-            lore.add("");
-            lore.add(hex(essence.getName() + " Perks:"));
-            
-            for (String line : essence.getDescription()) {
-                String processedLine = line;
-                if (papiEnabled) {
-                    processedLine = PlaceholderAPI.setPlaceholders(player, processedLine);
-                }
-                lore.add(hex(processedLine));
-            }
-            
-            lore.add("");
-            
-            if (data.getActiveEssence() != null && data.getActiveEssence().equals(essence.getId())) {
-                lore.add(hex("&#42FF71✓ &#5FFF8AACTIVE"));
-            } else if (!data.isHasUsedTrial()) {
-                lore.add(hex("&#4887FA→ &fClick to try for free"));
-            } else {
-                lore.add(hex("&#4887FA→ &fClick to purchase"));
-            }
-            
+            List<String> lore = buildLore(essence, player);
             meta.setLore(lore);
             item.setItemMeta(meta);
         }
         
         return item;
+    }
+    
+    private List<String> buildLore(Essence essence, Player player) {
+        ConfigurationSection loreConfig = plugin.getConfigManager().getInventoryConfig().getConfigurationSection("essence-menu.lore");
+        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
+        int playerPoints = plugin.getEconomyManager().getPoints(player);
+        
+        List<String> lore = new ArrayList<>();
+        
+        if (data.isOnTrial() && data.getTrialEssence() != null && data.getTrialEssence().equals(essence.getId())) {
+            long remaining = (data.getTrialEndTime() - System.currentTimeMillis()) / 1000 / 60;
+            String trialLine = loreConfig.getString("trial-active", "&#ecff00&l⭐ &#ecff00FREE TRIAL - {remaining} minutes left")
+                .replace("{remaining}", String.valueOf(remaining));
+            lore.add(hex(applyPlaceholders(player, trialLine)));
+        } else if (!data.isUsedTrial()) {
+            String trialAvailableLine = loreConfig.getString("trial-available", "&#ecff00&l⭐ &#ecff00Try for FREE for 1 hour");
+            lore.add(hex(applyPlaceholders(player, trialAvailableLine)));
+        } else {
+            String costLine = loreConfig.getString("purchase-cost", "&#ecff00&l⭐ &#ecff00Buy for {cost} Credits")
+                .replace("{cost}", String.valueOf(essence.getCost()));
+            lore.add(hex(applyPlaceholders(player, costLine)));
+        }
+        
+        String creditsLine = loreConfig.getString("current-credits", "&#4887FA&l⭐ &#4887FAYou have {current} Credits")
+            .replace("{current}", String.valueOf(playerPoints));
+        lore.add(hex(applyPlaceholders(player, creditsLine)));
+        
+        lore.add("");
+        
+        String perksHeader = loreConfig.getString("perks-header", "{essence} Perks:")
+            .replace("{essence}", hex(essence.getName()));
+        lore.add(hex(applyPlaceholders(player, perksHeader)));
+        
+        for (String line : essence.getDescription()) {
+            lore.add(hex(applyPlaceholders(player, line)));
+        }
+        
+        lore.add("");
+        
+        if (data.getActiveEssence() != null && data.getActiveEssence().equals(essence.getId())) {
+            String activeLine = loreConfig.getString("active-status", "&#42FF71✓ &#5FFF8AACTIVE");
+            lore.add(hex(applyPlaceholders(player, activeLine)));
+        } else if (!data.isUsedTrial()) {
+            String clickTrialLine = loreConfig.getString("click-trial", "&#4887FA→ &fClick to try for free");
+            lore.add(hex(applyPlaceholders(player, clickTrialLine)));
+        } else {
+            String clickPurchaseLine = loreConfig.getString("click-purchase", "&#4887FA→ &fClick to purchase");
+            lore.add(hex(applyPlaceholders(player, clickPurchaseLine)));
+        }
+        
+        return lore;
+    }
+    
+    private String applyPlaceholders(Player player, String text) {
+        if (papiEnabled) {
+            return PlaceholderAPI.setPlaceholders(player, text);
+        }
+        return text;
     }
     
     private String hex(String text) {
@@ -216,12 +275,16 @@ public class EssenceMenuGUI extends InventoryGUI {
             return;
         }
         
-        if (data.isOnTrial()) {
+        if (data.isOnTrial() && data.getTrialEssence() != null) {
             plugin.getPlayerDataManager().setActiveEssence(player, essence.getId());
             data.setTrialEssence(essence.getId());
             
-            String message = plugin.getConfigManager().getMessage("essence-switched")
+            String message = plugin.getConfigManager().getMessage("essence-switched-trial")
                 .replace("{essence}", essence.getName());
+            
+            if (papiEnabled) {
+                message = PlaceholderAPI.setPlaceholders(player, message);
+            }
             
             XSound.matchXSound("ENTITY_PLAYER_LEVELUP").ifPresent(s -> s.play(player));
             player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + message));
@@ -229,13 +292,18 @@ public class EssenceMenuGUI extends InventoryGUI {
             return;
         }
         
-        if (!data.isHasUsedTrial() && !data.isOnTrial()) {
+        if (!data.isUsedTrial() && !data.isOnTrial()) {
+            data.setUsedTrial(true);
             data.setTrialEssence(essence.getId());
             data.setTrialEndTime(System.currentTimeMillis() + (60 * 60 * 1000));
             plugin.getPlayerDataManager().setActiveEssence(player, essence.getId());
             
             String message = plugin.getConfigManager().getMessage("trial-started")
                 .replace("{essence}", essence.getName());
+            
+            if (papiEnabled) {
+                message = PlaceholderAPI.setPlaceholders(player, message);
+            }
             
             XSound.matchXSound("ENTITY_PLAYER_LEVELUP").ifPresent(s -> s.play(player));
             player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + message));
@@ -248,6 +316,10 @@ public class EssenceMenuGUI extends InventoryGUI {
             String message = plugin.getConfigManager().getMessage("insufficient-credits")
                 .replace("{cost}", String.valueOf(essence.getCost()))
                 .replace("{current}", String.valueOf(playerPoints));
+            
+            if (papiEnabled) {
+                message = PlaceholderAPI.setPlaceholders(player, message);
+            }
             
             XSound.matchXSound("ENTITY_VILLAGER_NO").ifPresent(s -> s.play(player));
             player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + message));
@@ -265,6 +337,10 @@ public class EssenceMenuGUI extends InventoryGUI {
         String message = plugin.getConfigManager().getMessage("essence-purchased")
             .replace("{essence}", essence.getName())
             .replace("{cost}", String.valueOf(essence.getCost()));
+        
+        if (papiEnabled) {
+            message = PlaceholderAPI.setPlaceholders(player, message);
+        }
         
         XSound.matchXSound("ENTITY_PLAYER_LEVELUP").ifPresent(s -> s.play(player));
         player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + message));

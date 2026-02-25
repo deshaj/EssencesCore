@@ -74,10 +74,13 @@ public class PlayerDataManager {
         
         if (data.hasTrialExpired()) {
             clearActiveEssence(player);
+            data.setUsedTrial(true);
             data.setTrialEssence(null);
             data.setTrialEndTime(0);
             player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + 
-                " &cYour 1-hour trial has expired! Purchase an essence to continue using it."));
+                " " + plugin.getConfigManager().getMessage("trial-expired")));
+            player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + 
+                " " + plugin.getConfigManager().getMessage("trial-expired-info")));
             savePlayerData(player);
         } else if (data.hasEssence()) {
             plugin.getServer().getScheduler().runTaskLater(plugin, () -> giveEssenceItems(player), 1L);

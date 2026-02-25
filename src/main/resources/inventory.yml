@@ -1,74 +1,31 @@
 essence-menu:
-  title: "&8Select An Essence"
-  size: 36
+  title: "&8Origin {page}/{total}"
+  size: 54
   
   filler:
     enabled: true
-    material: "GRAY_STAINED_GLASS_PANE"
-    slots:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 17
-      - 18
-      - 19
-      - 25
-      - 26
-      - 27
-      - 28
-      - 29
-      - 30
-      - 31
-      - 32
-      - 33
-      - 34
-      - 35
+    material: "BLACK_STAINED_GLASS_PANE"
+    name: " "
+    slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
   
-  essence-slots:
-    slot1: 10
-    slot2: 11
-    slot3: 12
-    slot4: 13
-    slot5: 14
-    slot6: 15
-    slot7: 16
-    slot8: 20
-    slot9: 21
-    slot10: 22
-    slot11: 23
-    slot12: 24
+  essence-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43]
   
   lore:
-    active: "&#42FF71✓ &#5FFF8AACTIVE"
-    click-to-select: "&#71FF71Click to select!"
-    no-permission: "&#FF4757✗ &#FF6B79NO PERMISSION"
-  
-  info-item:
-    enabled: true
-    slot: 4
-    material: "ENCHANTED_BOOK"
-    name: "&#D946FF&lI&#E666FF&ln&#F386FF&lf&#FFA6FF&lo"
-    lore:
-      - ""
-      - "&#9E9E9ESelect an essence to gain"
-      - "&#9E9E9Especial abilities and effects!"
-      - ""
-      - "&#FFD93DCurrent: &#FFEB99{current}"
-      - ""
-      - "&#B794F6Double-shift to toggle abilities"
+    trial-active: "&#ecff00&l⭐ &#ecff00FREE TRIAL - {remaining} minutes left"
+    trial-available: "&#ecff00&l⭐ &#ecff00Try for FREE for 1 hour"
+    purchase-cost: "&#ecff00&l⭐ &#ecff00Buy for {cost} Credits"
+    current-credits: "&#4887FA&l⭐ &#4887FAYou have {current} Credits"
+    perks-header: "{essence} Perks:"
+    active-status: "&#42FF71✓ &#5FFF8AACTIVE"
+    click-trial: "&#4887FA→ &fClick to try for free"
+    click-purchase: "&#4887FA→ &fClick to purchase"
   
   pagination:
     previous:
-      slot: 29
+      slot: 48
       material: "RED_SHULKER_BOX"
       name: "&cPrevious Page"
     next:
-      slot: 35
+      slot: 50
       material: "GREEN_SHULKER_BOX"
       name: "&aNext Page"
