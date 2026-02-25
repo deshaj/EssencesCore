@@ -21,6 +21,7 @@ messages:
   essence-switched: "&aYou have switched to {essence}&a! Cost: &e{cost}"
   no-permission: "&cYou don't have permission to use this essence!"
   already-has-essence: "&cYou already have this essence active!"
+  essence-switched: "&aYou switched to {essence}! &7(Free trial continues)"
   one-essence-only: "&cYou can only have one essence! Use /essence remove first."
   insufficient-funds: "&cYou don't have enough {currency} to switch essences! Required: &e{cost}"
   insufficient-points: "&cYou don't have enough credits! Required: &e{cost} &7(You have: {points})"

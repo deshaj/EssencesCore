@@ -91,19 +91,27 @@ public class EssenceMenuGUI extends InventoryGUI {
         List<Essence> essences = new ArrayList<>(plugin.getEssenceManager().getAllEssences());
         int totalPages = (int) Math.ceil((double) essences.size() / essencesPerPage);
         
+        int prevSlot = plugin.getConfigManager().getInventoryConfig().getInt("essence-menu.pagination.previous.slot", 29);
+        String prevMaterial = plugin.getConfigManager().getInventoryConfig().getString("essence-menu.pagination.previous.material", "RED_SHULKER_BOX");
+        String prevName = plugin.getConfigManager().getInventoryConfig().getString("essence-menu.pagination.previous.name", "&cPrevious Page");
+        
+        int nextSlot = plugin.getConfigManager().getInventoryConfig().getInt("essence-menu.pagination.next.slot", 35);
+        String nextMaterial = plugin.getConfigManager().getInventoryConfig().getString("essence-menu.pagination.next.material", "GREEN_SHULKER_BOX");
+        String nextName = plugin.getConfigManager().getInventoryConfig().getString("essence-menu.pagination.next.name", "&aNext Page");
+        
         if (page > 0) {
-            Material prevMat = XMaterial.matchXMaterial("LIME_STAINED_GLASS_PANE")
+            Material prevMat = XMaterial.matchXMaterial(prevMaterial)
                 .map(XMaterial::parseMaterial)
-                .orElse(Material.LIME_STAINED_GLASS_PANE);
+                .orElse(Material.RED_SHULKER_BOX);
             
             ItemStack prevPage = new ItemStack(prevMat);
             ItemMeta prevMeta = prevPage.getItemMeta();
             if (prevMeta != null) {
-                prevMeta.setDisplayName(ColorUtil.color("&aPrevious Page"));
+                prevMeta.setDisplayName(ColorUtil.color(prevName));
                 prevPage.setItemMeta(prevMeta);
             }
             
-            this.addButton(28, new InventoryButton()
+            this.addButton(prevSlot, new InventoryButton()
                 .creator(p -> prevPage.clone())
                 .consumer(event -> {
                     event.setCancelled(true);
@@ -114,18 +122,18 @@ public class EssenceMenuGUI extends InventoryGUI {
         }
         
         if (page < totalPages - 1) {
-            Material nextMat = XMaterial.matchXMaterial("LIME_STAINED_GLASS_PANE")
+            Material nextMat = XMaterial.matchXMaterial(nextMaterial)
                 .map(XMaterial::parseMaterial)
-                .orElse(Material.LIME_STAINED_GLASS_PANE);
+                .orElse(Material.GREEN_SHULKER_BOX);
             
             ItemStack nextPage = new ItemStack(nextMat);
             ItemMeta nextMeta = nextPage.getItemMeta();
             if (nextMeta != null) {
-                nextMeta.setDisplayName(ColorUtil.color("&aNext Page"));
+                nextMeta.setDisplayName(ColorUtil.color(nextName));
                 nextPage.setItemMeta(nextMeta);
             }
             
-            this.addButton(34, new InventoryButton()
+            this.addButton(nextSlot, new InventoryButton()
                 .creator(p -> nextPage.clone())
                 .consumer(event -> {
                     event.setCancelled(true);
@@ -205,6 +213,19 @@ public class EssenceMenuGUI extends InventoryGUI {
             XSound.matchXSound("ENTITY_VILLAGER_NO").ifPresent(s -> s.play(player));
             player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + 
                 plugin.getConfigManager().getMessage("already-has-essence")));
+            return;
+        }
+        
+        if (data.isOnTrial()) {
+            plugin.getPlayerDataManager().setActiveEssence(player, essence.getId());
+            data.setTrialEssence(essence.getId());
+            
+            String message = plugin.getConfigManager().getMessage("essence-switched")
+                .replace("{essence}", essence.getName());
+            
+            XSound.matchXSound("ENTITY_PLAYER_LEVELUP").ifPresent(s -> s.play(player));
+            player.sendMessage(ColorUtil.color(plugin.getConfigManager().getPrefix() + " " + message));
+            player.closeInventory();
             return;
         }
         

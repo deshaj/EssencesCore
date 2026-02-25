@@ -151,8 +151,8 @@ public class EssenceCore extends JavaPlugin {
                 statusParts.add("&d" + essence.getName());
                 
                 if (data.isOnTrial()) {
-                    long remaining = (data.getTrialEndTime() - System.currentTimeMillis()) / 1000;
-                    statusParts.add("&6Trial: &e" + remaining + "s");
+                    long remaining = (data.getTrialEndTime() - System.currentTimeMillis()) / 1000 / 60;
+                    statusParts.add("&6Trial: &e" + remaining + "m");
                 }
                 
                 boolean hasActiveCooldown = false;

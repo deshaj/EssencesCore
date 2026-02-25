@@ -62,3 +62,13 @@ essence-menu:
       - "&#FFD93DCurrent: &#FFEB99{current}"
       - ""
       - "&#B794F6Double-shift to toggle abilities"
+  
+  pagination:
+    previous:
+      slot: 29
+      material: "RED_SHULKER_BOX"
+      name: "&cPrevious Page"
+    next:
+      slot: 35
+      material: "GREEN_SHULKER_BOX"
+      name: "&aNext Page"
